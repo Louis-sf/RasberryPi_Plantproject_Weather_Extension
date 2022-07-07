@@ -33,11 +33,9 @@ if __name__ == '__main__':
                   .format(msg.topic(), msg.partition(), msg.offset()))
 
     #basic info for openmapweather.org
-    user_api = "fd4c2e4f0ab38bd7bde89d74d0afe7de"
+    user_api = "(your openmapweather api key)"
     lattitude = "47"
     longitude = "-122"
-
-    location = "San Francisco"
     while True:
         complete_api_link = "https://api.openweathermap.org/data/2.5/weather?lat="+lattitude +"&lon=" + longitude +\
                            "&appid=" + user_api
@@ -57,10 +55,7 @@ if __name__ == '__main__':
                   'time stamp': time_stamp}
         record_value = json.dumps(Schema)
         sfproducer.produce(topic, key=str(delivered_records), value=record_value, on_delivery=acked)
-        #sfproducer.poll()
-        #print(record_value)
+
         print("{} messages were produced to topic {}!".format(delivered_records, topic))
         time.sleep(15*60)
-        #time.sleep(60*15)
-        #print(api_data)
         #break
